@@ -1,11 +1,19 @@
 // number-guessing game
 
-// setting express, socket io, server and ports
-var app = require('express')();
+// setting express, socket io, server and ports and favicon
+
+var express = require('express');
+var app = express();
+var favicon = require('serve-favicon');
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 3010;
+var path = require('path');
 
+// setting favicon
+app.use(favicon(__dirname + '/favicon.ico'));
+
+app.use(express.static('public'));
 // setting server to listen port 3010
 server.listen(port, function () {
   console.log('Server listening at port %d', port);
@@ -44,9 +52,17 @@ io.sockets.on('connection', function (socket) {
     socket.on('nickname_to_server', function(data){
         var nicknames = data['message'];
         
+        var alertnick = "Nickname is already taken! Input another nickname";
         // getting socket id
         socketId = socket.id;
-        
+        for(x=0; x < users.length; x++) {
+            if(users[x].name === nicknames) {
+                socket.emit('alertnick', alertnick);
+                socket.emit('nickfalse', "false");
+                return false;
+            } 
+        }
+        socket.emit('nickfalse', "true");
         // adding user with id and nickname
         user = addUser(socketId, nicknames);
         // raising usercount
@@ -102,8 +118,7 @@ io.sockets.on('connection', function (socket) {
             for(var i=0; i < users.length; i++) {
                 if(users[i].id === socketWon){
                     users[i].won += 1;
-                    console.log(users);
-                } 
+                    } 
                 // update the users
               updateUsers();  
             }
@@ -130,7 +145,7 @@ var addUser = function (data, name) {
         id: data,
         name: name,
         won: 0
-    };
+    };   
     users.push(user);
     updateUsers();
     return user;
