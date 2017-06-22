@@ -101,8 +101,8 @@ io.sockets.on('connection', function (socket) {
             
             // take the right number that player guessed to 
             // a variable
-            guessNum = "The right number was " + rightNum + 
-                    " and the winner was player named " + userwon + "!";
+            guessNum = "The right number was " + "'" + rightNum + "'" + 
+                    " and the winner was player named " + "'" + userwon + "'" + "!";
             
             // emit the number and winner to the players
             io.sockets.emit("number", guessNum);
@@ -111,8 +111,8 @@ io.sockets.on('connection', function (socket) {
             // and the player that won
             var alertMsg = [userwon,rightNum];
             // emit the alert to all players
-            io.sockets.emit('alert', alertMsg); 
-            
+            socket.broadcast.emit('alert', alertMsg); 
+            socket.emit('alertwinner', alertMsg);
             // find the player that won and raise its won counter
             // by one
             for(var i=0; i < users.length; i++) {
@@ -126,11 +126,11 @@ io.sockets.on('connection', function (socket) {
             rightNum = randomNumber(1,100);
            // else if players guess is too big 
         } else if (rightNum < guessNum) {
-            guessNum = "Your guess is too big!";
+            guessNum = "Your guess " + "'" + guessNum + "'" + " is too big!";
             socket.emit("number", guessNum);            
             // else if players guess is too small 
         } else if (rightNum > guessNum) {
-            guessNum = "Your guess is too small!";
+            guessNum = "Your guess " + "'" + guessNum + "'" + " is too small!";
             socket.emit("number", guessNum);
         }        
     });

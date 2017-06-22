@@ -40,8 +40,18 @@
             // alert message
             socket.on('alert', function (msg) {
                 swal({
-                title: "Player named " + msg[0] + " won!",
-                text: "The right number was " + msg[1] + ". A new game starts!",
+                title: "Player named " + "'" + msg[0] + "'" + " won!",
+                text: "The right number was " + "'" + msg[1] + "'" + ". A new game starts!",
+                imageUrl: "images/black_salami2.jpg",
+                imageSize: '250x150'
+              });
+            });
+            
+            // alert winner separately
+            socket.on('alertwinner', function (msg) {
+                swal({
+                title: "Congratulations! You won!",
+                text: "The right number was " + "'" + msg[1] + "'" + ". A new game starts!",
                 imageUrl: "images/black_salami.png",
                 imageSize: '250x150'
               });
@@ -108,7 +118,16 @@
                 //take the message_imput value to a variable
                 var contents = document.getElementById("message_input").value;
                 // emit the contents to server
+                if(contents == "") {
+                    swal({
+                        title: "Input a number!",
+                        imageUrl: "images/you_serious.png",
+                        imageSize: '250x150'
+              });
+                } else {
                 socket.emit("message_to_server", {message: contents});
+                document.getElementById('message_input').value='';
+            }
             }
         </script>
     </head>
