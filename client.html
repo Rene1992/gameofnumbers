@@ -5,8 +5,9 @@
         <meta charset="utf-8">         
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="/socket.io/socket.io.js"></script>
-<!--        <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" integrity="sha384-HzUaiJdCTIY/RL2vDPRGdEQHHahjzwoJJzGUkYjHVzTwXFQ2QN/nVgX7tzoMW3Ov" crossorigin="anonymous">-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="/sweetalert/dist/sweetalert.min.js"></script> 
+        <link rel="stylesheet" href="/sweetalert/dist/sweetalert.css">
         <link rel="stylesheet" href="/css/bootstrap.css" media="screen" charset="utf-8">
         <link rel="stylesheet" href="/css/my-bootstrap.css" media="screen" charset="utf-8">
         <style>
@@ -38,23 +39,30 @@
             
             // alert message
             socket.on('alert', function (msg) {
-                alert('Game over! ' + msg);
+                swal({
+                title: "Player named " + msg[0] + " won!",
+                text: "The right number was " + msg[1] + ". A new game starts!",
+                imageUrl: "images/black_salami.png",
+                imageSize: '250x150'
+              });
             });
             
             // alert if nick was already taken
             socket.on('alertnick', function (msg) {
-                alert(msg);
+                swal({
+                title: msg,
+                imageUrl: "images/you_serious.png",
+                imageSize: '250x150'
+              });
             });
             
             // welcome message
             socket.on('welcome', function (data) {
-                console.log(data);
                 welcome.innerHTML = "Your player name is <strong>" + data.name + "</strong>";
             });
             
             // user count
             socket.on('user_count', function (data) {
-                console.log(data);
                 user_count.innerHTML = "<strong>" + data + "</strong> players online";
             });
             
@@ -63,6 +71,7 @@
                 users.innerHTML = "<h6><strong>Player name  /  Games won</strong></h6>"
                         + "<li>" + data.users + "</li>";
             });
+                                           
             
             // function that gets nickname value and sends
             // it to server
@@ -70,7 +79,7 @@
                // stores the input value to a variable and checks if it is empty
                 var nickname = document.getElementById("nickname_input").value;
                 if(nickname === "") {
-                    alert('Please enter your nickname');
+                    swal('Please enter your nickname', "", "warning");
                 } else {
 
                 //emit the nickname to server
@@ -113,11 +122,11 @@
                     <h1 class="title">Number game</h1>
                         </div>
                     </div>   
-                              
+                           
                 <div id="welcome"></div>
                 <div id="user_count"></div>
                 <ul id="users"></ul>
-                <input type="number" placeholder="Enter your number here" class="form-control" id="message_input"/>		
+                <input type="number" onkeypress="if(event.keyCode==13) {sendMessage();}" placeholder="Enter your number here" class="form-control" id="message_input"/>		
                 <button id="button" class="btn btn-primary" onclick="sendMessage()">Guess</button>
                 <hr>
                 <p id="numbers-guessed">Numbers guessed:</p>              
@@ -143,12 +152,10 @@
                     <h5 class="title-small">What's your nickname?</h5>
                         </div>
                     </div>
-                    <input id="nickname_input" class="form-control" placeholder="Enter your nickname here and click play" type="text" maxlength="25" />
-                    <div class="row">
-                        <div class="col-sm-9">
-                    <button id="button-login" class="btn btn-primary" onclick="getNickname()">Play</button>
-                        </div>
-                    </div>
+                    
+                        <input id="nickname_input" onkeypress="if(event.keyCode==13) {getNickname();}" class="form-control" placeholder="Enter your nickname here and click play" type="text" maxlength="25" />
+                        <button type="submit" onclick="getNickname()" id="button-login" class="btn btn-primary">Play</button>
+                    
                 </div>
             </li>
             

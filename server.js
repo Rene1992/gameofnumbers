@@ -1,7 +1,6 @@
 // number-guessing game
 
 // setting express, socket io, server and ports and favicon
-
 var express = require('express');
 var app = express();
 var favicon = require('serve-favicon');
@@ -9,6 +8,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 3010;
 var path = require('path');
+
 
 // setting favicon
 app.use(favicon(__dirname + '/favicon.ico'));
@@ -87,14 +87,7 @@ io.sockets.on('connection', function (socket) {
         // check if the number that user submitted
         // matches the right number
         if (rightNum == guessNum) {
-            
-            // take the right number that player guessed to 
-            // a variable
-            guessNum = "The right number was " + rightNum;
-            
-            // emit the number to the player
-            socket.emit("number", guessNum);
-            
+
             // store the socket id that won to socketWon variable
             socketWon = socket.id;
             
@@ -106,10 +99,17 @@ io.sockets.on('connection', function (socket) {
                 } 
             }
             
+            // take the right number that player guessed to 
+            // a variable
+            guessNum = "The right number was " + rightNum + 
+                    " and the winner was player named " + userwon + "!";
+            
+            // emit the number and winner to the players
+            io.sockets.emit("number", guessNum);
+            
             // alert message containing the right number 
             // and the player that won
-            var alertMsg = "The correct number was guessed! It was " + rightNum +
-            ". The player named " + "" + userwon + "" + " won! New game starts!";
+            var alertMsg = [userwon,rightNum];
             // emit the alert to all players
             io.sockets.emit('alert', alertMsg); 
             
@@ -127,13 +127,11 @@ io.sockets.on('connection', function (socket) {
            // else if players guess is too big 
         } else if (rightNum < guessNum) {
             guessNum = "Your guess is too big!";
-            socket.emit("number", guessNum);
-            console.log("Your guess is too big!");
+            socket.emit("number", guessNum);            
             // else if players guess is too small 
         } else if (rightNum > guessNum) {
             guessNum = "Your guess is too small!";
             socket.emit("number", guessNum);
-            console.log("Your guess is too small!");
         }        
     });
 

@@ -20,6 +20,31 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7deed', end
 font-size: 11px;
 }
 
+.sweet-alert {
+    padding: 10px;
+    border-radius:15px;
+}
+.sweet-alert p {
+    color: #000000;
+    font-weight: 500;
+}
+.sweet-alert .sa-icon {
+    margin: 5px auto;
+}
+.sweet-alert h2 {
+    color: #000000;
+    font-size: 17px;
+    text-align: center;
+    font-weight: 600;
+    text-transform: none;
+    position: relative;
+    margin: 0; 
+    padding: 0;
+    line-height: 40px;
+    display: block;
+    
+}
+
 .container-fluid {
     margin: 10px 25px 0 0;
     padding: 0;
@@ -37,7 +62,7 @@ p#playername {
     width:100%;
 }
 .title {
-    font-size: 25px;
+    font-size: 17px;
     text-shadow: 1px 1px 5px #000000;
     font-weight: bold;
     margin-top:5px;  
