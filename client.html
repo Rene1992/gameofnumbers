@@ -40,9 +40,10 @@
             // alert message
             socket.on('alert', function (msg) {
                 swal({
-                title: "Player named " + "'" + msg[0] + "'" + " won!",
+                title: "You lost! Player named " + "'" + msg[0] + 
+                        "'" + " won this round and " + msg[3] + " points with " + msg[2] + " guesses!",
                 text: "The right number was " + "'" + msg[1] + "'" + ". A new game starts!",
-                imageUrl: "images/black_salami2.jpg",
+                imageUrl: "images/facepalm.jpg",
                 imageSize: '250x150'
               });
             });
@@ -50,7 +51,8 @@
             // alert winner separately
             socket.on('alertwinner', function (msg) {
                 swal({
-                title: "Congratulations! You won!",
+                title: "Congratulations! You won this round and " + msg[3] + 
+                        " points for your " + msg[2] + " guesses!",
                 text: "The right number was " + "'" + msg[1] + "'" + ". A new game starts!",
                 imageUrl: "images/black_salami.png",
                 imageSize: '250x150'
@@ -78,7 +80,7 @@
             
             // list of players
             socket.on('users', function (data) {
-                users.innerHTML = "<h6><strong>Player name  /  Games won</strong></h6>"
+                users.innerHTML = "<h6><strong>Player name  /  Games won    /    Points</strong></h6>"
                         + "<li>" + data.users + "</li>";
             });
                                            
