@@ -2,6 +2,10 @@
   "name": "numbergame",
   "version": "1.0.0",
   "main": "server.js",
+  "engines": {
+    "node": "10.3.0",
+    "npm": "6.x"
+  }
   "dependencies": {
     "bufferutil": "3.0.1",
     "consolelog": "^2.1.3",
