@@ -4,8 +4,8 @@
   "main": "server.js",
   "engines": {
     "node": "10.3.0",
-    "npm": "6.x"
-  },
+    "npm": "6.9.0"
+  }
   "dependencies": {
     "bufferutil": "3.0.1",
     "consolelog": "^2.1.3",
