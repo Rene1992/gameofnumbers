@@ -3,7 +3,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
+/*
     Created on : Jun 18, 2017, 8:44:53 PM
     Author     : Rene
 */
@@ -38,25 +38,25 @@ font-size: 11px;
     font-weight: 600;
     text-transform: none;
     position: relative;
-    margin: 0; 
+    margin: 0;
     padding: 0;
     line-height: 25px;
     display: block;
-    
+
 }
 
 .container-fluid {
     margin: 10px 25px 0 0;
     padding: 0;
     width: 290px;
-    
+
 }
 ul.pages {
     padding-left:15px;
-}  
+}
 ul#users {
-padding-left:0;                
-margin-bottom: 5px;            
+padding-left:0;
+margin-bottom: 5px;
 }
 p#playername {
     width:100%;
@@ -65,23 +65,23 @@ p#playername {
     font-size: 17px;
     text-shadow: 1px 1px 5px #000000;
     font-weight: bold;
-    margin-top:5px;  
+    margin-top:5px;
   }
- 
+
  .title-login {
     font-size: 25px;
     text-shadow: 1px 1px 5px #000000;
     font-weight: bold;
-    margin-top:25px;  
-  } 
-  
+    margin-top:25px;
+  }
+
  .title-small{
       font-size: 20px;
-    
-      
-  } 
+
+
+  }
   #title-number {
-      
+
       font-weight: bold;
   }
   .content {
@@ -90,14 +90,14 @@ p#playername {
       padding: 0 15px;
       box-shadow: 1px 1px 25px #000000;
       background-color: #ffffff;
-  } 
+  }
   p#numbers-guessed {
       margin-top: 15px;
   }
 /*  .login_page {
       margin:0 10% 0 10%;
   } */
-  
+
   .form-control {
       border-radius: 25px;
   }
@@ -105,7 +105,7 @@ p#playername {
       margin: 0;
   }
   #button {
-      
+
       margin-top: 10px;
       margin-bottom: 10px;
       border-radius: 15px;
@@ -119,16 +119,29 @@ p#playername {
       font-size: 25px;
       box-shadow: 1px 1px 25px #000000;
 }
- 
+
 #number {
     margin-bottom: 15px;
+    overflow-y: auto;
+    height: 180px;
+}
+#chatmessages {
+    margin-bottom: 15px;
+    overflow-y: auto;
+    height: 150px;
+}
+#user_count {
+  margin-top:5px;
+}
+li.chat {
+    margin-top:15px;
 }
 @media only screen and (min-width: 360px) {
     .container-fluid {
         width: 340px;
 
   }
-  
+
   body {
       font-size:14px;
   }
@@ -154,7 +167,7 @@ p#playername {
       position:relative;
       left:22%;
   }
-  
+
   .title-small {
       position:relative;
       left:28%;
@@ -173,26 +186,26 @@ p#playername {
   .title {
       font-size: 50px;
     position:relative;
-    left: 14%;   
+    left: 14%;
   }
   .title-login {
       font-size: 50px;
     position:relative;
-    left: 14%;   
+    left: 14%;
   }
   #button {
-      position: relative;
+      /* position: relative; */
       left:40%;
       font-size:35px;
   }
-  
+
 }
 
 @media only screen and (min-width: 760px) {
-    
+
   .title {
       font-size: 50px;
-      left:14%;    
+      left:14%;
   }
   #title-number {
     font-weight: bold;
@@ -202,18 +215,18 @@ p#playername {
 .title-login {
       font-size: 50px;
     position:relative;
-    left: 14%;   
+    left: 14%;
   }
   .col-sm-offset-3 {
     margin-left: 0;
 }
 .title-small {
-    
+
     left: 33%;
     position:relative;
 }
   #button {
-      
+
       left:40%;
   }
 }
@@ -224,7 +237,7 @@ p#playername {
 }
 
 .title-small {
-    
+
     left: 30%;
     position:relative;
 }
@@ -234,9 +247,9 @@ p#playername {
    .container-fluid {
         margin-left: 20%;
 
-  } 
-  
-  
+  }
+
+
 }
 
 @media only screen and (min-width: 1200px) {

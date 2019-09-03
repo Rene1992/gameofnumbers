@@ -2,11 +2,11 @@
 <html>
     <head>
         <title>Number game</title>
-        <meta charset="utf-8">         
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="/socket.io/socket.io.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="/sweetalert/dist/sweetalert.min.js"></script> 
+        <script src="/sweetalert/dist/sweetalert.min.js"></script>
         <link rel="stylesheet" href="/sweetalert/dist/sweetalert.css">
         <link rel="stylesheet" href="/css/bootstrap.css" media="screen" charset="utf-8">
         <link rel="stylesheet" href="/css/my-bootstrap.css" media="screen" charset="utf-8">
@@ -17,9 +17,12 @@
             li.game {
                 display:none;
             }
+            li.chat {
+                display:none;
+            }
             .nickset {
                 display:block !important;
-            } 
+            }
             .nickoff {
                 display:none;
             }
@@ -30,35 +33,41 @@
         <script type="text/javascript">
             // create client socket
             var socket = io.connect();
-            
+
             // client socket to output guesses
-            socket.on("number", function (data) {              
+            socket.on("number", function (data) {
                 document.getElementById("number").innerHTML = (
                         data + "<br>" + document.getElementById("number").innerHTML);
             });
-            
+
+            // client socket to output guesses
+            socket.on("chatmessages", function (data) {
+              document.getElementById("chatmessages").innerHTML = (
+                      data + "<br>" + document.getElementById("chatmessages").innerHTML);
+            });
+
             // alert message
             socket.on('alert', function (msg) {
                 swal({
-                title: "You lost! Player named " + "'" + msg[0] + 
+                title: "You lost! Player named " + "'" + msg[0] +
                         "'" + " won this round and " + msg[3] + " points with " + msg[2] + " guesses!",
                 text: "The right number was " + "'" + msg[1] + "'" + ". A new game starts!",
                 imageUrl: "images/facepalm.jpg",
                 imageSize: '250x150'
               });
             });
-            
+
             // alert winner separately
             socket.on('alertwinner', function (msg) {
                 swal({
-                title: "Congratulations! You won this round and " + msg[3] + 
+                title: "Congratulations! You won this round and " + msg[3] +
                         " points for your " + msg[2] + " guesses!",
                 text: "The right number was " + "'" + msg[1] + "'" + ". A new game starts!",
                 imageUrl: "images/black_salami.png",
                 imageSize: '250x150'
               });
             });
-            
+
             // alert if nick was already taken
             socket.on('alertnick', function (msg) {
                 swal({
@@ -67,94 +76,168 @@
                 imageSize: '250x150'
               });
             });
-            
+
             // welcome message
             socket.on('welcome', function (data) {
                 welcome.innerHTML = "Your player name is <strong>" + data.name + "</strong>";
             });
-            
+
             // user count
             socket.on('user_count', function (data) {
                 user_count.innerHTML = "<strong>" + data + "</strong> players online";
             });
-            
+
             // list of players
             socket.on('users', function (data) {
                 users.innerHTML = "<h6><strong>Player name  /  Games won    /    Points</strong></h6>"
                         + "<li>" + data.users + "</li>";
             });
-                                           
-            
+
+
             // function that gets nickname value and sends
             // it to server
            function getNickname() {
-               // stores the input value to a variable and checks if it is empty
-                var nickname = document.getElementById("nickname_input").value;
-                if(nickname === "") {
-                    swal('Please enter your nickname', "", "warning");
-                } else {
+             // stores the input value to a variable and checks if it is empty
+              var nickname = document.getElementById("nickname_input").value;
+              if(nickname === "") {
+                  swal('Please enter your nickname', "", "warning");
+              } else {
 
-                //emit the nickname to server
-                socket.emit("nickname_to_server", {message: nickname});
-                // check if the nickname inputted was taken
-                socket.on('nickfalse', function(data){
-                    var nickfalse = data;
-                    if(nickfalse === "false") {
-                   
-                } else if(nickfalse === "true"){
-                   // if nickname was submitted
-                // successfully 
-                // jquery removes login page
-                // and shows the actual game
-                $(document).ready(function(){
+              //emit the nickname to server
+              socket.emit("nickname_to_server", {message: nickname});
+              // check if the nickname inputted was taken
+              socket.on('nickfalse', function(data){
+                  var nickfalse = data;
+                  if(nickfalse === "false") {
 
-                $(".login_page").remove();
-                $(".game").addClass("nickset");
-                }); 
+              } else if(nickfalse === "true"){
+                 // if nickname was submitted
+                 // successfully
+                 // jquery removes login page
+                 // and shows the actual game
+                  $(document).ready(function(){
+                    $(".login_page").remove();
+                    $(".game").addClass("nickset");
+                    $(".chat").addClass("nickset");
+                  });
                 }
-                });
+              });
 
-           }
+            }
            }
             function sendMessage() {
-                //take the message_imput value to a variable
-                var contents = document.getElementById("message_input").value;
-                // emit the contents to server
-                if(contents == "") {
-                    swal({
-                        title: "Input a number!",
-                        imageUrl: "images/you_serious.png",
-                        imageSize: '250x150'
-              });
-                } else {
-                socket.emit("message_to_server", {message: contents});
-                document.getElementById('message_input').value='';
+              //take the message_imput value to a variable
+              var contents = document.getElementById("message_input").value;
+              // emit the contents to server
+              if(contents == "") {
+                  swal({
+                      title: "Input a number!",
+                      imageUrl: "images/you_serious.png",
+                      imageSize: '250x150'
+                  });
+              } else {
+              socket.emit("message_to_server", {message: contents});
+              document.getElementById('message_input').value='';
+              }
             }
+
+            function sendChatMessage() {
+              // take the chat message to a variable
+              var chatMessage = document.getElementById("chat_input").value;
+              console.log("chatMessage ", chatMessage);
+              // emit the contents to server
+              if(chatMessage == "") {
+                swal({
+                    title: "Input something!",
+                    imageUrl: "images/you_serious.png",
+                    imageSize: '250x150'
+                });
+              } else {
+                socket.emit("chatmessage_to_server", {message: chatMessage});
+                // document.getElementById('chat_input').value='';
+              }
             }
+
         </script>
     </head>
     <body>
         <div class="container-fluid">
-        <ul class="pages">
+          <ul class="pages">
             <li class="game">
-                <div class="content">
-                <div class="row">
-                        <div class="col-sm-9 col-sm-offset-3">
-                    <h1 class="title">Number game</h1>
-                        </div>
-                    </div>   
-                           
-                <div id="welcome"></div>
-                <div id="user_count"></div>
-                <ul id="users"></ul>
-                <input type="number" onkeypress="if(event.keyCode==13) {sendMessage();}" placeholder="Enter your number here" class="form-control" id="message_input"/>		
-                <button id="button" class="btn btn-primary" onclick="sendMessage()">Guess</button>
-                <hr>
-                <p id="numbers-guessed">Numbers guessed:</p>              
-                <div id="number"></div>
-                </div>
+              <div class="content">
+
+                  <div class="row">
+                    <div class="form-group">
+                      <div class="col-xs-6"><h1 class="title">Number game</h1></div>
+                      <div class="col-xs-6"><div id="user_count"></div></div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <div id="welcome"></div>
+                      <ul id="users"></ul>
+                      <input type="number" onkeypress="if(event.keyCode==13) {sendMessage();}" placeholder="Enter your number here" class="form-control" id="message_input"/>
+                      <button id="button" class="btn btn-primary" onclick="sendMessage()">Guess</button>
+                    </div>
+
+                    <div class="col-xs-6">
+                      <div class='numbersguessed-section'>
+                        <div>Numbers guessed:</div>
+                        <div id="number"></div>
+                      </div>
+                    </div>
+                  </div>
+
+              </div>
             </li>
-            
+
+            <li class="chat">
+              <div class="content">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <h4>Player chat</h4>
+                  </div>
+
+                  <div class="col-xs-6">
+                    <h6>Nickname / Message</h6>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-6">
+                    <input type="text" onkeypress="if(event.keyCode==13) {sendChatMessage();}" placeholder="Say hi!" class="form-control" id="chat_input"/>
+                    <button id="button" class="btn btn-primary" onclick="sendChatMessage()">Enter text</button>
+                  </div>
+
+                  <div class="col-xs-6">
+                    <div id="chatmessages"></div>
+                  </div>
+                </div>
+
+                <!-- <div class="row">
+
+                </div> -->
+
+                  <!-- <div class="row">
+                    <div class="col-xs-6">
+                      <div id="welcome"></div>
+                      <ul id="users"></ul>
+                      <input type="number" onkeypress="if(event.keyCode==13) {sendMessage();}" placeholder="Enter your number here" class="form-control" id="message_input"/>
+                      <button id="button" class="btn btn-primary" onclick="sendMessage()">Guess</button>
+                    </div>
+
+                    <div class="col-xs-6">
+                      <div class='numbersguessed-section'>
+                        <div>Numbers guessed:</div>
+                        <div id="number"></div>
+                      </div>
+                    </div>
+                  </div> -->
+
+              </div>
+            </li>
+
             <li class="login_page">
                 <div class="content">
                     <div class="row">
@@ -166,23 +249,23 @@
                         <div class="col-sm-9">
                             <h5 id="title-number">Guess a number between 1 and 100</h5>
                         </div>
-                    </div> 
+                    </div>
                     <hr>
                     <div class="row">
                         <div class="col-sm-9">
                     <h5 class="title-small">What's your nickname?</h5>
                         </div>
                     </div>
-                    
-                        <input id="nickname_input" onkeypress="if(event.keyCode==13) {getNickname();}" class="form-control" placeholder="Enter your nickname here and click play" type="text" maxlength="25" />
-                        <button type="submit" onclick="getNickname()" id="button-login" class="btn btn-primary">Play</button>
-                    
+
+                      <input id="nickname_input" onkeypress="if(event.keyCode==13) {getNickname();}" class="form-control" placeholder="Enter your nickname here and click play" type="text" maxlength="25" />
+                      <button type="submit" onclick="getNickname()" id="button-login" class="btn btn-primary">Play</button>
+
                 </div>
             </li>
-            
-        </ul>
-        </div>  
-        
-        
+
+          </ul>
+        </div>
+
+
     </body>
 </html>
