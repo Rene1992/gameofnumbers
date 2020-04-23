@@ -16,12 +16,12 @@ app.use(favicon(__dirname + '/favicon.ico'));
 app.use(express.static('public'));
 // setting server to listen port 3010
 server.listen(port, function () {
-  console.log('Server listening at port %d', port);
+    console.log('Server listening at port %d', port);
 });
 
 // set the root to server client.html file
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/client.html');
+    res.sendfile(__dirname + '/client.html');
 });
 
 // this function creates a random number
@@ -101,24 +101,20 @@ io.sockets.on('connection', function (socket) {
         userCount++;
         // emiting welcome message to the user connected
         socket.emit("welcome", user);
-    // emiting usercount to all players online
-    io.sockets.emit("user_count", userCount);
+        // emiting usercount to all players online
+        io.sockets.emit("user_count", userCount);
     });
 
     socket.on('chatmessage_to_server', function(data){
         var chatmessage = data['message'];
         var nickname;
-        console.log("chatmessage", chatmessage);
         for(x=0; x < users.length; x++) {
             if(users[x].id === socket.id) {
-              console.log("socket.id", socket.id);
-              console.log("users[x].id", users[x].id);
               nickname = users[x].name;
               break;
             }
         }
-        var message = nickname + ' ' + chatmessage;
-        console.log("message", message);
+        var message = nickname + ': ' + chatmessage;
         io.sockets.emit("chatmessages", message);
     });
 
@@ -195,7 +191,6 @@ io.sockets.on('connection', function (socket) {
             socket.emit("number", guessNum);
         }
     });
-
 });
 
 // function that adds players to users array
@@ -233,7 +228,6 @@ var updateUsers = function () {
     for (var i = 0; i < users.length; i++) {
         var user = users[i];
         str = str + user.name + "  /  " + user.won + "  /  " + user.points + "<br>";
-
     }
 
     io.sockets.emit("users", {users: str});
