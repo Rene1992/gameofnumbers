@@ -10,14 +10,14 @@ and open the template in the editor.
 
 body {
     background: rgba(183,222,237,1);
-background: -moz-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 1%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%);
-background: -webkit-gradient(left top, right top, color-stop(0%, rgba(183,222,237,1)), color-stop(1%, rgba(113,206,239,1)), color-stop(51%, rgba(33,180,226,1)), color-stop(100%, rgba(183,222,237,1)));
-background: -webkit-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 1%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%);
-background: -o-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 1%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%);
-background: -ms-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 1%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%);
-background: linear-gradient(to right, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 1%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7deed', endColorstr='#b7deed', GradientType=1 );
-font-size: 11px;
+    background: -moz-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 1%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(183,222,237,1)), color-stop(1%, rgba(113,206,239,1)), color-stop(51%, rgba(33,180,226,1)), color-stop(100%, rgba(183,222,237,1)));
+    background: -webkit-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 1%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%);
+    background: -o-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 1%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%);
+    background: -ms-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 1%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%);
+    background: linear-gradient(to right, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 1%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7deed', endColorstr='#b7deed', GradientType=1 );
+    font-size: 11px;
 }
 
 .sweet-alert {
@@ -45,18 +45,12 @@ font-size: 11px;
 
 }
 
-.container-fluid {
-    margin: 10px 25px 0 0;
-    padding: 0;
-    width: 290px;
-
-}
 ul.pages {
     padding-left:15px;
 }
 ul#users {
-padding-left:0;
-margin-bottom: 5px;
+    padding-left:0;
+    margin-bottom: 5px;
 }
 p#playername {
     width:100%;
@@ -68,49 +62,39 @@ p#playername {
     margin-top:5px;
   }
 
- .title-login {
-    font-size: 25px;
+#title-login {
     text-shadow: 1px 1px 5px #000000;
     font-weight: bold;
-    margin-top:25px;
-  }
+}
 
- .title-small{
-      font-size: 20px;
+#title-small {
+    font-size: 20px;
+}
+#title-number {
+    font-weight: bold;
+}
+.content {
+    border: 1px solid #f9eded;
+    border-radius:25px;
+    padding: 0 15px;
+    box-shadow: 1px 1px 25px #000000;
+    background-color: #ffffff;
+}
+p#numbers-guessed {
+    margin-top: 15px;
+}
 
-
-  }
-  #title-number {
-
-      font-weight: bold;
-  }
-  .content {
-      border: 1px solid #f9eded;
-      border-radius:25px;
-      padding: 0 15px;
-      box-shadow: 1px 1px 25px #000000;
-      background-color: #ffffff;
-  }
-  p#numbers-guessed {
-      margin-top: 15px;
-  }
-/*  .login_page {
-      margin:0 10% 0 10%;
-  } */
-
-  .form-control {
-      border-radius: 25px;
-  }
-  hr {
-      margin: 0;
-  }
-  #button {
-
-      margin-top: 10px;
-      margin-bottom: 10px;
-      border-radius: 15px;
-      font-size: 13px;
-      box-shadow: 1px 1px 25px #000000;
+.form-control {
+    border-radius: 25px;
+}
+hr {
+    margin: 0;
+}
+#button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    font-size: 13px;
 }
 
 #button-login {
@@ -137,131 +121,38 @@ li.chat {
     margin-top:15px;
 }
 @media only screen and (min-width: 360px) {
-    .container-fluid {
-        width: 340px;
-
-  }
-
-  body {
-      font-size:14px;
-  }
+    body {
+        font-size:14px;
+    }
 }
 
 @media only screen and (min-width: 420px) {
     .container-fluid {
         width: 400px;
-
-  }
-}
-
-@media only screen and (min-width: 500px) {
-    .container-fluid {
-        width: 480px;
-        margin-left:10%;
-  }
-  .title-login {
-      position:relative;
-      left:30%;
-  }
-  #title-number {
-      position:relative;
-      left:22%;
-  }
-
-  .title-small {
-      position:relative;
-      left:28%;
-  }
-  #button-login {
-      position:relative;
-      left: 43%;
-  }
+    }
 }
 
 @media only screen and (min-width: 600px) {
-    .container-fluid {
-        width: 580px;
-
-  }
-  .title {
-      font-size: 50px;
-    position:relative;
-    left: 14%;
-  }
-  .title-login {
-      font-size: 50px;
-    position:relative;
-    left: 14%;
-  }
-  #button {
-      /* position: relative; */
-      left:40%;
-      font-size:35px;
-  }
-
+    .title {
+        font-size: 35px;
+    }
+    .title-login {
+        font-size: 35px; 
+    }
+    #button {
+        font-size:35px;
+    }
 }
 
 @media only screen and (min-width: 760px) {
-
-  .title {
-      font-size: 50px;
-      left:14%;
-  }
-  #title-number {
-    font-weight: bold;
-    left: 25%;
-    position:relative;
-}
-.title-login {
-      font-size: 50px;
-    position:relative;
-    left: 14%;
-  }
-  .col-sm-offset-3 {
-    margin-left: 0;
-}
-.title-small {
-
-    left: 33%;
-    position:relative;
-}
-  #button {
-
-      left:40%;
-  }
+    .title {
+        font-size: 35px;
+    }
+    #title-number {
+        font-weight: bold;
+    }
+    .title-login {
+        font-size: 35px;
+    }
 }
 
-@media (min-width: 768px) {
-.col-sm-9 {
-    width: 100%;
-}
-
-.title-small {
-
-    left: 30%;
-    position:relative;
-}
-
-}
-@media only screen and (min-width: 970px) {
-   .container-fluid {
-        margin-left: 20%;
-
-  }
-
-
-}
-
-@media only screen and (min-width: 1200px) {
-    .container-fluid {
-        margin-left: 30%;
-
-  }
-}
-
-@media only screen and (min-width: 1500px) {
-    .container-fluid {
-        margin-left: 25%;
-
-  }
-}
